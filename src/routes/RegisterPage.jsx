@@ -29,14 +29,12 @@ const RegisterPage = () => {
       [name]: value,
     }));
   };
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/register",
-        formData
-      );
+      const response = await axios.post(`${apiUrl}/register`, formData);
       if (response.data.success) {
         toast.success(response.data.message);
         setFormData({ name: "", username: "", email: "", password: "" });

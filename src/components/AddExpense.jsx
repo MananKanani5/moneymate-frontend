@@ -47,15 +47,12 @@ const AddExpense = ({ onExpenseAdded }) => {
       toast.error("You cannot add an expense for a future date!");
       return;
     }
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/expenses",
-        expenseData,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${apiUrl}/expenses`, expenseData, {
+        withCredentials: true,
+      });
       if (response.status === 201) {
         toast.success("Expense added successfully");
         setExpenseData({

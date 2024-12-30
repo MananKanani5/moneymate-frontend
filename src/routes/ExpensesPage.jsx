@@ -10,11 +10,11 @@ const ExpensesPage = () => {
   const [expense, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedExpense, setSelectedExpense] = useState(null);
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/expenses", {
+        const response = await axios.get(`${apiUrl}/expenses`, {
           withCredentials: true,
         });
         setExpenses(response.data);

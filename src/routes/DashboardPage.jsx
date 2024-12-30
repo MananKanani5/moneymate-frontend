@@ -36,10 +36,11 @@ const DashboardPage = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [error, setError] = useState(null);
   const [refreshData, setRefreshData] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchData = () => {
     axios
-      .get("http://localhost:8080/api/dashboard", { withCredentials: true })
+      .get(`${apiUrl}/dashboard`, { withCredentials: true })
       .then((response) => {
         setDashboardData(response.data);
       })
@@ -113,7 +114,7 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Pie Chart (Expenses by Category) */}
+          {/* Pie Chart */}
           <div className="card p-4 pie widItem">
             <div className="d-flex justify-content-center align-items-center">
               {dashboardData.expensesByCategory &&
@@ -167,7 +168,7 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Weekly Expenses Section */}
+          {/* Bar Chart */}
           <div className="card p-4 chart widItem">
             <div className="d-flex justify-content-center align-items-center">
               {dashboardData.weeklyExpenses &&

@@ -38,10 +38,11 @@ const LoginPage = () => {
       toast.error("Both fields are required!");
       return;
     }
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/login",
+        `${apiUrl}/login`,
         { username, password },
         { withCredentials: true }
       );

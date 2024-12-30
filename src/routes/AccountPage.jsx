@@ -27,8 +27,10 @@ const AccountPage = () => {
     }
   }, [isAuthenticated, navigate]);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const handleLogout = async () => {
-    await axios.get("http://localhost:8080/api/logout", {
+    await axios.get(`${apiUrl}/logout`, {
       withCredentials: true,
     });
     logout();
