@@ -50,7 +50,7 @@ const RegisterPage = () => {
         toast.error(data?.message || "Invalid credentials.");
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Something went wrong.");
+      console.log(error);
     }
   };
 

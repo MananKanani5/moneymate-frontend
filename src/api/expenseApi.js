@@ -1,6 +1,6 @@
 import axios from "axios";
 import dayjs from "dayjs";
-const API_URL = `${import.meta.env.VITE_API_URL}/expense/`;
+const API_URL = `${import.meta.env.VITE_API_URL}/expense`;
 export const getAllExpenses = async (
   token,
   page = 1,

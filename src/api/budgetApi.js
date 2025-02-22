@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/budget/`;
+const API_URL = `${import.meta.env.VITE_API_URL}/budget`;
 
 export const setBudget = (budgetData, token) =>
   axios.post(API_URL, budgetData, {

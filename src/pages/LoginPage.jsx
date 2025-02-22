@@ -48,7 +48,7 @@ const LoginPage = () => {
         toast.error(data.data?.message || "Invalid credentials.");
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Something went wrong.");
+      console.log(error);
     }
   };
 
