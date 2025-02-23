@@ -5,6 +5,11 @@ import Entertainment from "../../assets/categories/Entertainment.jpg";
 import Personal from "../../assets/categories/Personal.jpg";
 import MISC from "../../assets/categories/MISC.jpg";
 import dayjs from "dayjs";
+import utc from "@dayjs/plugin/utc";
+import timezone from "@dayjs/plugin-timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const ExpenseItem = ({ key, expense, isExpense = false }) => {
   const categoryImages = { Entertainment, Food, MISC, Personal, Transport };
@@ -27,9 +32,8 @@ const ExpenseItem = ({ key, expense, isExpense = false }) => {
             <div className="spending-details ms-3">
               <h6 className="m-0">{expense.category.categoryName}</h6>
               <p className="spending-date">
-                {dayjs
-                  .utc(expense.dateTime)
-                  .local()
+                {dayjs(expense.dateTime)
+                  .tz("Asia/Kolkata")
                   .format("DD-MM-YYYY hh:mm A")}
               </p>
               {isExpense ? (
