@@ -68,7 +68,7 @@ const ExpensesPage = () => {
           <div className="account widItem py-3 mob-pt-1 px-4 mob-mt-4 mob-px-3 z-3 card">
             <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
               <h3 className="mt-2">
-                Total Spent: ₹ {expense.totalAmount._sum.amount}
+                Total Spent: ₹ {expense.totalAmount._sum.amount || 0}
               </h3>
 
               <form
