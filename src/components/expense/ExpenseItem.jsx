@@ -5,8 +5,8 @@ import Entertainment from "../../assets/categories/Entertainment.jpg";
 import Personal from "../../assets/categories/Personal.jpg";
 import MISC from "../../assets/categories/MISC.jpg";
 import dayjs from "dayjs";
-import utc from "@dayjs/plugin/utc";
-import timezone from "@dayjs/plugin-timezone";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
