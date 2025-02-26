@@ -42,7 +42,9 @@ const LoginPage = () => {
         localStorage.setItem("token", data.data.token);
         localStorage.setItem("user", JSON.stringify(data.data));
         setIsAuthenticated(true);
+
         navigate("/dashboard");
+
         setFormData({ email: "", password: "" });
       } else {
         toast.error(data.data?.message || "Invalid credentials.");

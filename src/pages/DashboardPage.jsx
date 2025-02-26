@@ -12,6 +12,8 @@ import WeeklyChart from "../components/Dashboard/WeeklyChart";
 import { getDashboardData } from "../api/expenseApi";
 import { AuthContext } from "../context/AuthContext";
 import AddExpense from "../components/expense/AddExpense";
+import Modal from "../components/common/Modal";
+Modal;
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -19,7 +21,9 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const [dashboardData, setDashboardData] = useState(null);
   const { isAuthenticated } = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -67,12 +71,21 @@ const DashboardPage = () => {
         </div>
 
         <div className="grids">
-          <BudgetOverview budgetOverview={dashboardData} />
+          <BudgetOverview
+            budgetOverview={dashboardData}
+            setShowModal={setShowModal}
+          />
           <CategoryChart categoryChart={dashboardData.categoryData} />
           <RecentExpenses RecentExpenses={dashboardData.lastTransactions} />
           <WeeklyChart WeeklyChart={dashboardData.weeklySummary} />
         </div>
       </main>
+      <Modal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        fetchData={fetchData}
+        token={token}
+      />
     </>
   );
 };

@@ -36,8 +36,11 @@ const ExpensesPage = () => {
         formData.endDate
       );
       if (data.status) {
-        setExpenses(data.data);
-        setTotalPages(data.data.totalPages);
+        setExpenses({
+          totalAmount: data.data.totalAmount || { _sum: { amount: 0 } },
+          data: data.data.data || [],
+        });
+        setTotalPages(data.data.totalPages || 1);
         if (e) toast.success(data.message || "Expenses fetched successfully");
       } else {
         toast.error(data.message || "Error fetching expenses");
@@ -68,7 +71,7 @@ const ExpensesPage = () => {
           <div className="account widItem py-3 mob-pt-1 px-4 mob-mt-4 mob-px-3 z-3 card">
             <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
               <h3 className="mt-2">
-                Total Spent: ₹ {expense.totalAmount._sum.amount || 0}
+                Total Spent: ₹ {expense?.totalAmount?._sum?.amount || 0}
               </h3>
 
               <form
@@ -113,7 +116,7 @@ const ExpensesPage = () => {
                   />
                 ))
               ) : (
-                <p>There are no recent expenses.</p>
+                <p>There are no expenses.</p>
               )}
             </div>
 

@@ -2,13 +2,13 @@ import axios from "axios";
 
 const API_URL = `${import.meta.env.VITE_API_URL}/budget`;
 
-export const setBudget = (budgetData, token) =>
-  axios.post(API_URL, budgetData, {
+export const setBudget = (amount, token) =>
+  axios.post(API_URL, amount, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-export const updateBudget = (id, budgetData, token) =>
-  axios.patch(`${API_URL}/${id}`, budgetData, {
+export const updateBudget = (id, amount, token) =>
+  axios.patch(`${API_URL}/${id}`, amount, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
