@@ -14,9 +14,9 @@ import NotFound from "./pages/NotFound";
 import ExpensesPage from "./pages/ExpensesPage";
 import PublicLayout from "./layouts/PublicLayout";
 import PrivateLayout from "./layouts/PrivateLayout";
-import ForgotPasswordPage from "./pages/forgotPasswordPage";
 import { ToastContainer } from "react-toastify";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 function App() {
   return (
