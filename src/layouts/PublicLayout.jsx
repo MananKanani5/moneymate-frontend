@@ -6,8 +6,6 @@ const PublicLayout = () => {
   return (
     <>
       <Navbar />
-      <ToastContainer position="bottom-right" newestOnTop pauseOnHover />
-
       <main>
         <Outlet />
       </main>

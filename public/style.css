@@ -132,7 +132,8 @@ button:hover{
 
 .loginForm{
     background-color: #f8f9fa;
-    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px 0 #00000010;
+    max-width: 90% !important;
 }
 
 .side{

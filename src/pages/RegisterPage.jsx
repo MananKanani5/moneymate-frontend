@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerUser } from "../api/userApi";
+import { AuthContext } from "../context/AuthContext";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -14,6 +17,12 @@ const RegisterPage = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +34,7 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const { firstName, lastName, phoneNumber, email, password } = formData;
 
     try {
@@ -36,8 +46,8 @@ const RegisterPage = () => {
         password,
       });
 
-      if (data?.status) {
-        toast.success("Registration successful!");
+      if (data.status) {
+        toast.success(data.message || "Registration successful!");
         setFormData({
           firstName: "",
           lastName: "",
@@ -47,10 +57,13 @@ const RegisterPage = () => {
         });
         navigate("/login");
       } else {
-        toast.error(data?.message || "Invalid credentials.");
+        toast.error(data.message || "Error registering user.");
       }
     } catch (error) {
+      toast.error(error.response.data.message || "An error occurred.");
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -122,15 +135,18 @@ const RegisterPage = () => {
                   />
                 </div>
 
-                <button type="submit" className="btn btn-primary w-100">
-                  Register
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                  disabled={loading}
+                >
+                  {loading ? "Registering..." : "Register"}
                 </button>
 
                 <div className="mt-3">
                   <p className="text-center">
                     Already have an account?
                     <span>
-                      {" "}
                       <Link to="/login">Login Here</Link>
                     </span>
                   </p>

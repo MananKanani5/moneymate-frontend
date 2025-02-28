@@ -7,6 +7,12 @@ export const registerUser = (userData) =>
 export const loginUser = (credentials) =>
   axios.post(`${API_URL}/login`, credentials);
 
+export const forgotPassword = (email) =>
+  axios.post(`${API_URL}/forgot-password`, { email });
+
+export const resetPassword = ({ email, otp, newPassword }) =>
+  axios.post(`${API_URL}/reset-password`, { email, otp, newPassword });
+
 export const getUserById = (id, token) =>
   axios.get(`${API_URL}/${id}`, {
     headers: { Authorization: `Bearer ${token}` },

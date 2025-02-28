@@ -14,15 +14,21 @@ import NotFound from "./pages/NotFound";
 import ExpensesPage from "./pages/ExpensesPage";
 import PublicLayout from "./layouts/PublicLayout";
 import PrivateLayout from "./layouts/PrivateLayout";
+import ForgotPasswordPage from "./pages/forgotPasswordPage";
+import { ToastContainer } from "react-toastify";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ToastContainer position="bottom-right" newestOnTop pauseOnHover />
         <Routes>
           {/* Public Routes */}
           <Route element={<PublicLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="*" element={<NotFound />} />

@@ -13,12 +13,13 @@ const HomePage = () => {
       navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);
+
   return (
     <>
       <section className="pb-5">
         <div className="container">
           <div className="row">
-            <div className="col-12 text-center pt-5 mt-5 d-flex flex-column align-items-center">
+            <div className="col-12 text-center pt-5 mt-5 ps-3 pe-3 d-flex flex-column align-items-center">
               <h1 className="fw-semibold animate__animated animate__fadeIn">
                 Take Control of Your Money with MoneyMate
               </h1>
@@ -41,6 +42,10 @@ const HomePage = () => {
                 />
               </picture>
             </div>
+          </div>
+
+          <div className="row">
+            <h1>Manan</h1>
           </div>
         </div>
       </section>

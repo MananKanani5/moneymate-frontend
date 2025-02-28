@@ -2,17 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loginUser } from "../api/userApi";
+import { forgotPassword } from "../api/userApi";
 import { AuthContext } from "../context/AuthContext";
 
-const LoginPage = () => {
+const ForgotPasswordPage = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const { setIsAuthenticated } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
   });
 
   useEffect(() => {
@@ -31,26 +29,19 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const { email, password } = formData;
+    const { email } = formData;
 
     try {
-      const { data } = await loginUser({ email, password });
+      const { data } = await forgotPassword(email);
 
       if (data.status) {
-        toast.success(data.message || "Login successful!");
-
-        localStorage.setItem("token", data.data.token);
-        localStorage.setItem("user", JSON.stringify(data.data));
-        setIsAuthenticated(true);
-
-        navigate("/dashboard");
-
-        setFormData({ email: "", password: "" });
+        toast.success(data.message || "otp sent to your email.");
+        navigate("/reset-password", { state: { email } });
       } else {
-        toast.error(data.message || "Invalid credentials.");
+        toast.error(data.message || "Error Sending otp.");
       }
     } catch (error) {
-      toast.error(error.response.data.message || "An error occurred.");
+      toast.error(error.response.data.message || "Error Sending otp.");
       console.log(error);
     } finally {
       setLoading(false);
@@ -64,7 +55,7 @@ const LoginPage = () => {
           <div className="row">
             <div className="col-sm-6 col-xs-12 loginForm mx-auto mt-5 p-md-5 p-4 rounded-4 bg-white">
               <form onSubmit={handleSubmit}>
-                <h2 className="fw-bold mb-4 text-center">Login Here</h2>
+                <h2 className="fw-bold mb-4 text-center">Forgot Password</h2>
                 <div className="mb-3">
                   <input
                     type="text"
@@ -77,32 +68,17 @@ const LoginPage = () => {
                     required
                   />
                 </div>
-                <div className="mb-3">
-                  <input
-                    type="password"
-                    placeholder="Enter Password"
-                    className="form-control"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    aria-label="Password"
-                    required
-                  />
-                </div>
                 <button
                   type="submit"
                   className="btn btn-primary w-100"
                   disabled={loading}
                 >
-                  {loading ? "Logging in..." : "Login"}
+                  {loading ? "Sending..." : "Send OTP"}
                 </button>
                 <div className="mt-3">
-                  <p className="d-flex justify-content-between">
+                  <p className="text-center">
                     <span>
-                      <Link to="/register"> Create New Account</Link>
-                    </span>
-                    <span>
-                      <Link to="/forgot-password"> Forgot Password?</Link>
+                      <Link to="/login">Login Here</Link>
                     </span>
                   </p>
                 </div>
@@ -115,4 +91,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ForgotPasswordPage;

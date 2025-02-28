@@ -14,6 +14,7 @@ import { createExpense } from "../../api/expenseApi";
 
 const AddExpense = ({ onExpenseAdded }) => {
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     time: "",
     date: "",
@@ -39,6 +40,7 @@ const AddExpense = ({ onExpenseAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const token = localStorage.getItem("token");
 
     try {
@@ -60,6 +62,8 @@ const AddExpense = ({ onExpenseAdded }) => {
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -184,8 +188,12 @@ const AddExpense = ({ onExpenseAdded }) => {
                       ></textarea>
                     </div>
                     <div className="modal-footer">
-                      <button type="submit" className="btn btn-primary">
-                        Add Expense
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        disabled={loading}
+                      >
+                        {loading ? "Adding..." : "Add Expense"}
                       </button>
                     </div>
                   </form>

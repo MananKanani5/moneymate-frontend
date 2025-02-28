@@ -1,18 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loginUser } from "../api/userApi";
+import { resetPassword } from "../api/userApi";
 import { AuthContext } from "../context/AuthContext";
 
-const LoginPage = () => {
+const ResetPasswordPage = () => {
+  const location = useLocation();
+  const userEmail = location.state?.email || "";
+
   const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const { setIsAuthenticated } = useContext(AuthContext);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: userEmail,
+    otp: "",
+    newPassword: "",
   });
 
   useEffect(() => {
@@ -20,6 +23,12 @@ const LoginPage = () => {
       navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    if (userEmail) {
+      setFormData((prev) => ({ ...prev, email: userEmail }));
+    }
+  }, [userEmail]);
 
   const handleChange = (e) => {
     setFormData({
@@ -31,23 +40,16 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const { email, password } = formData;
+    const { email, otp, newPassword } = formData;
 
     try {
-      const { data } = await loginUser({ email, password });
+      const { data } = await resetPassword({ email, otp, newPassword });
 
       if (data.status) {
-        toast.success(data.message || "Login successful!");
-
-        localStorage.setItem("token", data.data.token);
-        localStorage.setItem("user", JSON.stringify(data.data));
-        setIsAuthenticated(true);
-
-        navigate("/dashboard");
-
-        setFormData({ email: "", password: "" });
+        toast.success(data.message || "Password reset successful.");
+        navigate("/login");
       } else {
-        toast.error(data.message || "Invalid credentials.");
+        toast.error(data.message || "Error resetting password.");
       }
     } catch (error) {
       toast.error(error.response.data.message || "An error occurred.");
@@ -64,7 +66,7 @@ const LoginPage = () => {
           <div className="row">
             <div className="col-sm-6 col-xs-12 loginForm mx-auto mt-5 p-md-5 p-4 rounded-4 bg-white">
               <form onSubmit={handleSubmit}>
-                <h2 className="fw-bold mb-4 text-center">Login Here</h2>
+                <h2 className="fw-bold mb-4 text-center">Reset Password</h2>
                 <div className="mb-3">
                   <input
                     type="text"
@@ -75,17 +77,30 @@ const LoginPage = () => {
                     onChange={handleChange}
                     aria-label="email"
                     required
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    placeholder="Enter OTP"
+                    className="form-control"
+                    name="otp"
+                    value={formData.otp}
+                    onChange={handleChange}
+                    aria-label="otp"
+                    required
                   />
                 </div>
                 <div className="mb-3">
                   <input
                     type="password"
-                    placeholder="Enter Password"
+                    placeholder="New Password"
                     className="form-control"
-                    name="password"
-                    value={formData.password}
+                    name="newPassword"
+                    value={formData.newPassword}
                     onChange={handleChange}
-                    aria-label="Password"
+                    aria-label="newPassword"
                     required
                   />
                 </div>
@@ -94,18 +109,8 @@ const LoginPage = () => {
                   className="btn btn-primary w-100"
                   disabled={loading}
                 >
-                  {loading ? "Logging in..." : "Login"}
+                  {loading ? "Resetting..." : "Reset Password"}
                 </button>
-                <div className="mt-3">
-                  <p className="d-flex justify-content-between">
-                    <span>
-                      <Link to="/register"> Create New Account</Link>
-                    </span>
-                    <span>
-                      <Link to="/forgot-password"> Forgot Password?</Link>
-                    </span>
-                  </p>
-                </div>
               </form>
             </div>
           </div>
@@ -115,4 +120,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ResetPasswordPage;

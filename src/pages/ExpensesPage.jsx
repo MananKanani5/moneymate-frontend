@@ -27,7 +27,13 @@ const ExpensesPage = () => {
 
   const fetchExpenses = async (e) => {
     e?.preventDefault();
+    setLoading(true);
     try {
+      if (formData.startDate > formData.endDate) {
+        toast.error("Start date cannot be greater than end date");
+        return;
+      }
+
       const { data } = await getAllExpenses(
         token,
         currentPage,
@@ -100,7 +106,9 @@ const ExpensesPage = () => {
                     className="form-control"
                   />
                 </div>
-                <button className="btn btn-primary">Search</button>
+                <button className="btn btn-primary">
+                  {loading ? "Searching..." : "Search"}
+                </button>
               </form>
             </div>
           </div>

@@ -4,12 +4,15 @@ import { toast } from "react-toastify";
 
 const Modal = ({ showModal, setShowModal, fetchData, token }) => {
   const [newBudget, setNewBudget] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = showModal ? "hidden" : "auto";
   }, [showModal]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     try {
       await setBudget({ amount: newBudget }, token);
       toast.success("Budget set successfully");
@@ -18,6 +21,8 @@ const Modal = ({ showModal, setShowModal, fetchData, token }) => {
     } catch (error) {
       toast.error(error.response.data.message || "Error setting budget");
       console.error("Error setting budget:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,11 +57,12 @@ const Modal = ({ showModal, setShowModal, fetchData, token }) => {
                 value={newBudget}
                 onChange={(e) => setNewBudget(e.target.value)}
                 placeholder="Enter new budget"
+                required
               />
             </div>
             <div className="modal-footer">
               <button className="btn btn-primary" onClick={handleSubmit}>
-                Save
+                {loading ? "Setting..." : "Set Budget"}
               </button>
             </div>
           </div>

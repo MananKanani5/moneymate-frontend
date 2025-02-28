@@ -6,12 +6,6 @@ const PrivateLayout = () => {
   return (
     <div className="private-container">
       <Sidebar />
-      <ToastContainer
-        position="bottom-right"
-        draggable
-        newestOnTop={true}
-        pauseOnHover
-      />
       <div className="private-content">
         <Outlet />
       </div>
