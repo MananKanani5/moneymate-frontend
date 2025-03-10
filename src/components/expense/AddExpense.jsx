@@ -10,11 +10,12 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import dayjs from "dayjs";
-import { createExpense } from "../../api/expenseApi";
+import { createExpense, getAvailableCategories } from "../../api/expenseApi";
 
 const AddExpense = ({ onExpenseAdded }) => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     time: "",
     date: "",
@@ -26,10 +27,25 @@ const AddExpense = ({ onExpenseAdded }) => {
   useEffect(() => {
     if (showModal) {
       document.body.style.overflow = "hidden";
+      fetchCategories();
     } else {
       document.body.style.overflow = "auto";
     }
   }, [showModal]);
+
+  const fetchCategories = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const { data } = await getAvailableCategories(token);
+      if (data.status) {
+        setCategories(data.data);
+      } else {
+        toast.error("Failed to load categories");
+      }
+    } catch (error) {
+      toast.error("Error fetching categories");
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -167,11 +183,15 @@ const AddExpense = ({ onExpenseAdded }) => {
                         required
                       >
                         <option value="">Select category</option>
-                        <option value="1">Food</option>
-                        <option value="2">Transport</option>
-                        <option value="3">Entertainment</option>
-                        <option value="4">Personal</option>
-                        <option value="5">Misc</option>
+                        {categories.length > 0 ? (
+                          categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                              {category.categoryName}
+                            </option>
+                          ))
+                        ) : (
+                          <option value="">No Categories Found</option>
+                        )}
                       </select>
                     </div>
                     <div className="input-group flex-nowrap mb-4">

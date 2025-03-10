@@ -41,6 +41,12 @@ export const deleteExpense = (id, token) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
+//Get Available Categories
+export const getAvailableCategories = (token) =>
+  axios.get(`${API_URL}/categories`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
 // Dashboard Data
 export const getDashboardData = (token) =>
   axios.get(`${API_URL}/dashboard`, {

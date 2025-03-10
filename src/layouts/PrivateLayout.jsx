@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/common/Sidebar";
-import { ToastContainer } from "react-toastify";
 
 const PrivateLayout = () => {
   return (

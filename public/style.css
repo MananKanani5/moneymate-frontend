@@ -52,7 +52,7 @@ html {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: Quicksand !important;
+    font-family: Quicksand, Segoe UI ,  sans-serif !important;
 }
 
 body{
@@ -63,26 +63,6 @@ body{
     min-height: 100vh;
     width: 100%;
 }
-
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--primary); 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-hover); 
-  }
 
 
   .Toastify{
@@ -101,7 +81,7 @@ a:hover{
 
 p{
     margin-bottom: 0.1rem !important;
-    font-size: 0.95rem !important;
+    font-size: 1rem !important;
     font-weight: 400 !important;
 }
 
@@ -291,6 +271,19 @@ button:hover{
 
 .hide-pc{
     display: none !important;
+}
+
+
+.about-section{
+    background-color: #fff;
+
+    p{
+        text-align: justify;
+    }
+
+    .icon-container{
+        padding: 20px;
+    }
 }
 
 

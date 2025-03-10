@@ -36,7 +36,7 @@ const Modal = ({ showModal, setShowModal, fetchData, token }) => {
       ></div>
 
       <div
-        className="modal fade show animate__animated animate__fadeInUp animate__faster"
+        className="modal fade show animate__animated animate__fadeIn animate__fastUp animate__faster"
         style={{ display: "block" }}
       >
         <div className="modal-dialog modal-fullscreen-lg-down">

@@ -4,7 +4,7 @@ import icon from "../../assets/icon.png";
 const Loading = () => {
   return (
     <>
-      <section className="d-flex justify-content-center align-items-center vh-100 animate__animated animate__fadeIn">
+      <section className="d-flex justify-content-center align-items-center vh-100 animate__animated animate__fadeIn animate__fast">
         <img
           src={icon}
           style={{ width: "125px" }}

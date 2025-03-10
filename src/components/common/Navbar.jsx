@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   return (
-    <section className="bg-body-tertiary p-3">
+    <section className="p-3 pt-4">
       <div className="container d-flex align-items-center justify-content-between">
         <Link to={"/"}>
           <img src={logo} className="img-fluid w-75" />

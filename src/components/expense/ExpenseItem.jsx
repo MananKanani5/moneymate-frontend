@@ -37,7 +37,15 @@ const ExpenseItem = ({ key, expense, isExpense = false }) => {
                   .format("DD-MM-YYYY hh:mm A")}
               </p>
               {isExpense ? (
-                <p className="spending-description">{expense.description}</p>
+                <p className="spending-description">
+                  {expense.description.length >
+                  (window.innerWidth < 768 ? 15 : 80)
+                    ? `${expense.description.slice(
+                        0,
+                        window.innerWidth < 768 ? 15 : 80
+                      )}...`
+                    : expense.description}
+                </p>
               ) : (
                 ""
               )}

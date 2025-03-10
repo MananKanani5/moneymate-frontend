@@ -77,7 +77,7 @@ const AccountPage = () => {
   return (
     <>
       <div className="bg-primary mob-bg d-none"></div>
-      <main className="animate__animated animate__fadeIn dash">
+      <main className="animate__animated animate__fadeIn animate__fast dash">
         <div className="d-none mob-block position-relative text-center text-white my-4">
           <h2>My Account</h2>
         </div>

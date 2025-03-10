@@ -81,7 +81,7 @@
 //           ></div>
 
 //           <div
-//             className="modal fade show animate__animated animate__fadeInUp animate__faster"
+//             className="modal fade show animate__animated animate__fadeIn animate__fastUp animate__faster"
 //             id="addModel"
 //             tabIndex="-1"
 //             aria-labelledby="addModelLabel"

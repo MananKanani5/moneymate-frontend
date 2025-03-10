@@ -69,7 +69,7 @@ const ExpensesPage = () => {
     <>
       <AddExpense onExpenseAdded={fetchExpenses} />
       <div className="bg-primary mob-bg d-none"></div>
-      <main className="main-content mb-4 animate__animated animate__fadeIn dash">
+      <main className="main-content mb-4 animate__animated animate__fadeIn animate__fast dash">
         <div className="d-none mob-block position-relative text-center text-white my-4">
           <h2>Expenses</h2>
         </div>

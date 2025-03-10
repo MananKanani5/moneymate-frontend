@@ -52,7 +52,7 @@ const DashboardPage = () => {
     <>
       <AddExpense onExpenseAdded={fetchData} />
       <div className="bg-primary mob-bg d-none"></div>
-      <main className="main-content mb-4 animate__animated animate__fadeIn dash">
+      <main className="main-content mb-4 animate__animated animate__fadeIn animate__fast dash">
         <Link
           to={"/dashboard"}
           className="logo d-none mob-block position-relative mb-4 mt-3 text-center"

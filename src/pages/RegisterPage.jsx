@@ -69,7 +69,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <section className="animate__animated animate__fadeIn">
+      <section className="animate__animated animate__fadeIn animate__fast">
         <div className="container">
           <div className="row">
             <div className="col-sm-6 col-xs-12 loginForm mx-auto mt-5 p-md-5 p-4 rounded-4 bg-white">
@@ -145,9 +145,9 @@ const RegisterPage = () => {
 
                 <div className="mt-3">
                   <p className="text-center">
-                    Already have an account?
+                    Already have an account ?
                     <span>
-                      <Link to="/login">Login Here</Link>
+                      <Link to="/login"> Login Here</Link>
                     </span>
                   </p>
                 </div>
