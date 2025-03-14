@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        return decoded.exp * 1000 > Date.now(); // ✅ Initialize from token
+        return decoded.exp * 1000 > Date.now();
       } catch {
         return false;
       }
@@ -44,7 +44,6 @@ export const AuthProvider = ({ children }) => {
 
     checkAuth();
 
-    // ✅ Listen for changes in localStorage (when user logs in or logs out)
     const handleStorageChange = (event) => {
       if (event.key === "token") checkAuth();
     };
@@ -53,7 +52,6 @@ export const AuthProvider = ({ children }) => {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // ✅ Prevent unnecessary re-renders
   const contextValue = useMemo(
     () => ({ isAuthenticated, setIsAuthenticated }),
     [isAuthenticated]
