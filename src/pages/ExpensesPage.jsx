@@ -9,6 +9,7 @@ import AddExpense from "../components/expense/AddExpense";
 const ExpensesPage = () => {
   const [expense, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const token = localStorage.getItem("token");
@@ -25,9 +26,13 @@ const ExpensesPage = () => {
     }));
   };
 
-  const fetchExpenses = async (e) => {
+  const fetchExpenses = async (e, isSearch = false) => {
     e?.preventDefault();
-    setLoading(true);
+    if (isSearch) {
+      setIsSearching(true);
+    } else {
+      setLoading(true);
+    }
     try {
       if (formData.startDate > formData.endDate) {
         toast.error("Start date cannot be greater than end date");
@@ -54,7 +59,11 @@ const ExpensesPage = () => {
     } catch (error) {
       console.error("Error fetching expenses:", error);
     } finally {
-      setLoading(false);
+      if (isSearch) {
+        setIsSearching(false);
+      } else {
+        setLoading(false);
+      }
     }
   };
 
@@ -62,9 +71,6 @@ const ExpensesPage = () => {
     fetchExpenses();
   }, [currentPage]);
 
-  if (loading) {
-    return <Loading />;
-  }
   return (
     <>
       <AddExpense onExpenseAdded={fetchExpenses} />
@@ -106,8 +112,8 @@ const ExpensesPage = () => {
                     className="form-control"
                   />
                 </div>
-                <button className="btn btn-primary">
-                  {loading ? "Searching..." : "Search"}
+                <button className="btn btn-primary" disabled={isSearching}>
+                  {isSearching ? "Searching..." : "Search"}
                 </button>
               </form>
             </div>
@@ -115,12 +121,13 @@ const ExpensesPage = () => {
 
           <div className="account widItem pt-2 mob-pt-1 pb-2 px-4 mob-px-3 z-3 card-custom ">
             <div className="my-3">
-              {expense.data.length > 0 ? (
+              {expense?.data?.length > 0 ? (
                 expense.data.map((expenseitem) => (
                   <ExpenseItem
                     key={expenseitem.id}
                     expense={expenseitem}
                     isExpense={true}
+                    expenseId={expenseitem.id}
                   />
                 ))
               ) : (

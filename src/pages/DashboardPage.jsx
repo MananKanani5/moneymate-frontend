@@ -13,6 +13,7 @@ import { getDashboardData } from "../api/expenseApi";
 import { AuthContext } from "../context/AuthContext";
 import AddExpense from "../components/expense/AddExpense";
 import Modal from "../components/common/Modal";
+import { toast } from "react-toastify";
 Modal;
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -30,16 +31,15 @@ const DashboardPage = () => {
       navigate("/login");
       return;
     }
-
     fetchData();
-  }, []);
+  }, [isAuthenticated]);
 
   const fetchData = async () => {
     try {
       const { data } = await getDashboardData(localStorage.getItem("token"));
       setDashboardData(data?.data);
     } catch (err) {
-      setError(err.response?.data?.message || "Error fetching data");
+      toast.error(err.response?.data?.message || "Error fetching data");
     } finally {
       setLoading(false);
     }

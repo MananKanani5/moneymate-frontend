@@ -11,17 +11,14 @@ import timezone from "dayjs/plugin/timezone";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const ExpenseItem = ({ key, expense, isExpense = false }) => {
+const ExpenseItem = ({ expense, isExpense = false, expenseId }) => {
   const categoryImages = { Entertainment, Food, MISC, Personal, Transport };
   const categoryImage = categoryImages[expense.category.categoryName] || MISC;
 
   return (
     <>
       <a className="text-black">
-        <div
-          key={key}
-          className="d-flex align-items-center w-100 mb-1 spending-item"
-        >
+        <div className="d-flex align-items-center w-100 mb-1 spending-item">
           <img
             src={categoryImage}
             className="rounded-2"
