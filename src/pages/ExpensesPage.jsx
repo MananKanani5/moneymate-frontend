@@ -130,6 +130,7 @@ const ExpensesPage = () => {
                     expense={expenseitem}
                     isExpense={true}
                     expenseId={expenseitem.id}
+                    onExpenseUpdated={fetchExpenses}
                   />
                 ))
               ) : (

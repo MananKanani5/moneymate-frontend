@@ -7,14 +7,19 @@ import ExpenseItem from "../expense/ExpenseItem";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const RecentExpenses = ({ RecentExpenses }) => {
+const RecentExpenses = ({ RecentExpenses, onExpenseUpdated }) => {
+  // Add onExpenseUpdated prop
   return (
     <div className="card p-4 spend widItem">
       <h5 className="mb-4 fw-bold">Recent Expenses</h5>
 
       {RecentExpenses && RecentExpenses.length > 0 ? (
         RecentExpenses.map((expenseItem) => (
-          <ExpenseItem key={expenseItem.id} expense={expenseItem} />
+          <ExpenseItem
+            key={expenseItem.id}
+            expense={expenseItem}
+            onExpenseUpdated={onExpenseUpdated} // Pass the prop down
+          />
         ))
       ) : (
         <p>No recent expenses.</p>

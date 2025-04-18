@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginUser } from "../api/userApi";
 import { AuthContext } from "../context/AuthContext";
+import { RiEyeLine, RiEyeOffLine } from "@remixicon/react";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -77,9 +79,9 @@ const LoginPage = () => {
                     required
                   />
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 position-relative">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter Password"
                     className="form-control"
                     name="password"
@@ -88,6 +90,21 @@ const LoginPage = () => {
                     aria-label="Password"
                     required
                   />
+                  <button
+                    type="button"
+                    className="btn btn-link position-absolute end-0 me-2 top-50 translate-middle-y text-decoration-none"
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      padding: "0.375rem",
+                      transform: "translateY(-50%)",
+                    }}
+                  >
+                    {showPassword ? (
+                      <RiEyeOffLine size={18} className="text-secondary" />
+                    ) : (
+                      <RiEyeLine size={18} className="text-secondary" />
+                    )}
+                  </button>
                 </div>
                 <button
                   type="submit"
@@ -97,7 +114,7 @@ const LoginPage = () => {
                   {loading ? "Logging in..." : "Login"}
                 </button>
                 <div className="mt-3">
-                  <p className="d-flex justify-content-between">
+                  <p className="d-flex flex-column flex-md-row justify-content-md-between align-items-center text-center text-md-start gap-3">
                     <span>
                       <Link to="/register"> Create New Account</Link>
                     </span>

@@ -7,17 +7,22 @@ import MISC from "../../assets/categories/MISC.jpg";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import UpdateExpense from "./UpdateExpense";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const ExpenseItem = ({ expense, isExpense = false, expenseId }) => {
+const ExpenseItem = ({ expense, isExpense = false, onExpenseUpdated }) => {
+  const [showEditModal, setShowEditModal] = useState(false);
   const categoryImages = { Entertainment, Food, MISC, Personal, Transport };
   const categoryImage = categoryImages[expense.category.categoryName] || MISC;
 
   return (
     <>
-      <a className="text-black">
+      <div
+        className="text-black cursor-pointer"
+        onClick={() => setShowEditModal(true)}
+      >
         <div className="d-flex align-items-center w-100 mb-1 spending-item">
           <img
             src={categoryImage}
@@ -50,7 +55,16 @@ const ExpenseItem = ({ expense, isExpense = false, expenseId }) => {
             <p className="fw-medium">₹{expense.amount}</p>
           </div>
         </div>
-      </a>
+      </div>
+
+      {showEditModal && (
+        <UpdateExpense
+          id={expense.id}
+          onExpenseUpdated={onExpenseUpdated}
+          showModal={showEditModal}
+          setShowModal={setShowEditModal}
+        />
+      )}
     </>
   );
 };

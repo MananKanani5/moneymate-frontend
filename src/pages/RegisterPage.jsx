@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerUser } from "../api/userApi";
 import { AuthContext } from "../context/AuthContext";
+import { RiEyeLine, RiEyeOffLine } from "@remixicon/react";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const RegisterPage = () => {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -122,9 +124,9 @@ const RegisterPage = () => {
                     required
                   />
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 position-relative">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     className="form-control"
                     id="password"
                     name="password"
@@ -133,6 +135,22 @@ const RegisterPage = () => {
                     placeholder="Create Password"
                     required
                   />
+
+                  <button
+                    type="button"
+                    className="btn btn-link position-absolute end-0 me-2 top-50 translate-middle-y text-decoration-none"
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      padding: "0.375rem",
+                      transform: "translateY(-50%)",
+                    }}
+                  >
+                    {showPassword ? (
+                      <RiEyeOffLine size={18} className="text-secondary" />
+                    ) : (
+                      <RiEyeLine size={18} className="text-secondary" />
+                    )}
+                  </button>
                 </div>
 
                 <button

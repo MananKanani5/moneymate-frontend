@@ -76,7 +76,10 @@ const DashboardPage = () => {
             setShowModal={setShowModal}
           />
           <CategoryChart categoryChart={dashboardData.categoryData} />
-          <RecentExpenses RecentExpenses={dashboardData.lastTransactions} />
+          <RecentExpenses
+            RecentExpenses={dashboardData.lastTransactions}
+            onExpenseUpdated={fetchData}
+          />
           <WeeklyChart WeeklyChart={dashboardData.weeklySummary} />
         </div>
       </main>
