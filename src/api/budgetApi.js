@@ -7,11 +7,6 @@ export const setBudget = (amount, token) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
-export const updateBudget = (id, amount, token) =>
-  axios.patch(`${API_URL}/${id}`, amount, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
 export const getCurrentBudget = (token) =>
   axios.get(API_URL, { headers: { Authorization: `Bearer ${token}` } });
 

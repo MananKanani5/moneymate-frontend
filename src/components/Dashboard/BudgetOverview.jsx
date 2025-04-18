@@ -1,5 +1,4 @@
 import { RiPencilFill } from "@remixicon/react";
-import React, { useState } from "react";
 
 const BudgetOverview = ({ budgetOverview, setShowModal }) => {
   return (

@@ -121,7 +121,9 @@ const ExpensesPage = () => {
 
           <div className="account widItem pt-2 mob-pt-1 pb-2 px-4 mob-px-3 z-3 card-custom ">
             <div className="my-3">
-              {expense?.data?.length > 0 ? (
+              {loading ? (
+                <Loading />
+              ) : expense?.data?.length > 0 ? (
                 expense.data.map((expenseitem) => (
                   <ExpenseItem
                     key={expenseitem.id}

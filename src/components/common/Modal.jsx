@@ -15,7 +15,7 @@ const Modal = ({ showModal, setShowModal, fetchData, token }) => {
     setLoading(true);
     try {
       await setBudget({ amount: newBudget }, token);
-      toast.success("Budget set successfully");
+      toast.success("Budget saved successfully");
       fetchData();
       setShowModal(false);
     } catch (error) {
