@@ -87,7 +87,7 @@ const AddExpense = ({ onExpenseAdded }) => {
 
   return (
     <>
-      <ToastContainer position="bottom-right" newestOnTop pauseOnHover />
+      <ToastContainer position="top-right" newestOnTop pauseOnHover />
       <div>
         <button
           className="position-fixed add-exp"

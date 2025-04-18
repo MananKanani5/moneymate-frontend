@@ -70,6 +70,11 @@ body{
     position: relative;
   }
 
+  .Toastify__toast-container--top-right{
+    padding: 10px !important;
+    top: 10px !important;
+  }
+
 a{
     color: var(--primary) !important;
     text-decoration: none !important;

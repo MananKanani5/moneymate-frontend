@@ -22,7 +22,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <ToastContainer position="bottom-right" newestOnTop pauseOnHover />
+        <ToastContainer position="top-right" newestOnTop pauseOnHover />
         <Routes>
           {/* Public Routes */}
           <Route element={<PublicLayout />}>
